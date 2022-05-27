@@ -21,17 +21,21 @@ class Litesizer500:
             engine="openpyxl")
 
         self.get_sample_information()
+        self.get_results()
 
 
     def get_sample_information(self):
 
-        dict_workbook_name = self.get_adjacent_value(self.df[[0, 1]], "Workbook name")
+        dict_workbook_name = self.get_adjacent_value(
+            self.df[[0, 1]], "Workbook name")
         self.workbook_name = list(dict_workbook_name.values())[0]
 
-        dict_measurement_name = self.get_adjacent_value(self.df[[0, 1]], "Measurement name")
+        dict_measurement_name = self.get_adjacent_value(
+            self.df[[0, 1]], "Measurement name")
         self.measurement_name = list(dict_measurement_name.values())[0]
 
-        dict_measurement_mode = self.get_adjacent_value(self.df[[0, 1]], "Measurement mode")
+        dict_measurement_mode = self.get_adjacent_value(
+            self.df[[0, 1]], "Measurement mode")
         self.measurement_mode = list(dict_measurement_mode.values())[0]
 
         dict_comment = self.get_adjacent_value(self.df[[0, 1]], "Comment")
@@ -40,23 +44,44 @@ class Litesizer500:
     def get_results(self):
 
         dict_hydrodynamic_diameter = self.get_adjacent_value(
-            self.df[[0, 1]], "Hydrodynamic diameter")
+            self.df[[0, 1, 2, 3]], "Hydrodynamic diameter")
+        self.hydrodynamic_diameter = float(
+            list(dict_hydrodynamic_diameter.values())[0])
 
         dict_polydispersity_index = self.get_adjacent_value(
-            self.df[[0, 1]], "Polydispersity index")
+            self.df[[0, 1, 2, 3]], "Polydispersity index")
+        self.polydispersity_index = float(
+            list(dict_polydispersity_index.values())[0])
 
         dict_intercept_g12 = self.get_adjacent_value(
-            self.df[[0, 1]], "Intercept g1²")
-        
-        dict_baseline = self.get_adjacent_value(
-            self.df[[0, 1]], "Baseline")
-        
-        dict_mean_intensity
-Mean intensity
-Absolute intensity
-Fit error
-Diffusion coefficient
+            self.df[[0, 1, 2, 3]], "Intercept g1²")
+        self.intercept_g12 = float(
+            list(dict_intercept_g12.values())[0])
 
+        dict_baseline = self.get_adjacent_value(
+            self.df[[0, 1, 2, 3]], "Baseline")
+        self.baseline = float(
+            list(dict_baseline.values())[0])
+
+        dict_mean_intensity = self.get_adjacent_value(
+            self.df[[0, 1, 2, 3]], "Mean intensity")
+        self.mean_intensity = float(
+            list(dict_mean_intensity.values())[0])
+
+        dict_absolute_intensity = self.get_adjacent_value(
+            self.df[[0, 1, 2, 3]], "Absolute intensity")
+        self.absolute_intensity = float(
+            list(dict_absolute_intensity.values())[0])
+
+        dict_fit_error = self.get_adjacent_value(
+            self.df[[0, 1, 2, 3]], "Fit error")
+        self.fit_error = float(
+            list(dict_fit_error.values())[0])
+
+        dict_diffusion_coefficient = self.get_adjacent_value(
+            self.df[[0, 1, 2, 3]], "Diffusion coefficient")
+        self.diffusion_coefficient = float(
+            list(dict_diffusion_coefficient.values())[0])
 
     """
     Utility Functions
