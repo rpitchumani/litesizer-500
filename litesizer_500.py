@@ -4,6 +4,7 @@ Class to read exported Anton Paar Litesizer 500 Particle Analyzer XLSX File
 """
 
 from typing import List, Dict, Any
+import pint
 import pandas as pd
 
 
@@ -35,6 +36,27 @@ class Litesizer500:
 
         dict_comment = self.get_adjacent_value(self.df[[0, 1]], "Comment")
         self.comment = list(dict_comment.values())[0]
+
+    def get_results(self):
+
+        dict_hydrodynamic_diameter = self.get_adjacent_value(
+            self.df[[0, 1]], "Hydrodynamic diameter")
+
+        dict_polydispersity_index = self.get_adjacent_value(
+            self.df[[0, 1]], "Polydispersity index")
+
+        dict_intercept_g12 = self.get_adjacent_value(
+            self.df[[0, 1]], "Intercept g1²")
+        
+        dict_baseline = self.get_adjacent_value(
+            self.df[[0, 1]], "Baseline")
+        
+        dict_mean_intensity
+Mean intensity
+Absolute intensity
+Fit error
+Diffusion coefficient
+
 
     """
     Utility Functions
