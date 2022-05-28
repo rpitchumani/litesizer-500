@@ -4,7 +4,6 @@ Class to read exported Anton Paar Litesizer 500 Particle Analyzer XLSX File
 """
 
 from typing import List, Dict, Any
-import pint
 import pandas as pd
 
 
