@@ -22,7 +22,7 @@ class Litesizer500:
 
         self.get_sample_information()
         self.get_results()
-
+        self.get_volume_weighted_size_distribution()
 
     def get_sample_information(self):
 
@@ -82,6 +82,45 @@ class Litesizer500:
             self.df[[0, 1, 2, 3]], "Diffusion coefficient")
         self.diffusion_coefficient = float(
             list(dict_diffusion_coefficient.values())[0])
+
+    def get_volume_weighted_size_distribution(self):
+
+        def get_psd(df, weighted):
+
+            list_pos_particle_diameter = self.get_positions_of_value(
+                df, "Particle diameter")
+
+            list_pos_weighted = self.get_positions_of_value(
+                df, weighted)
+
+            list_col_pos_weighted = [x[1] for x in list_pos_weighted]
+
+            list_col_pos_weighted = \
+                [list_pos_particle_diameter[0][1]] + list_col_pos_weighted
+
+            df_psd_weighted = \
+                df.iloc[list_pos_particle_diameter[0][0]:,
+                        list_col_pos_weighted].dropna(how="all").\
+                reset_index(drop=True)
+
+            df_psd_weighted = \
+                df_psd_weighted.astype(float, errors="ignore")
+
+            df_psd_weighted = \
+                df_psd_weighted.iloc[3:, :].\
+                reset_index(drop=True)
+
+            df_psd_weighted.columns = [
+                "Particle Diameter (nm)", "Relative Frequency (%)",
+                "Cumulative Undersize (%)"]
+
+            return df_psd_weighted
+
+        self.df_psd_intensity_weighted = get_psd(self.df, "Intensity weighted")
+
+        self.df_psd_volume_weighted = get_psd(self.df, "Volume weighted")
+
+        self.df_psd_number_weighted = get_psd(self.df, "Number weighted")
 
     """
     Utility Functions
